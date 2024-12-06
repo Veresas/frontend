@@ -1,10 +1,8 @@
 import React from "react";
-
-function Home(){
+import MovieList from "../modules/MovieList";
+const Home = () =>{
     return(
-        <div>
-            Главная
-        </div>
+        <MovieList />
     )
 }
 

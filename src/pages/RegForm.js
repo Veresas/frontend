@@ -1,9 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import useServerRequest from '../hooks/useServerRequest';
 
 const RegForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { reqData, error, loading, makeRequest } = useServerRequest();
+  const onSubmit = async (data) => makeRequest('/acc/reg', 'POST', data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -16,15 +18,7 @@ const RegForm = () => {
         />
         {errors.name && <span>Имя обязательно и должно содержать минимум 3 символа.</span>}
       </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
-        />
-        {errors.email && <span>Введите корректный email.</span>}
-      </div>
+      
       <div>
         <label htmlFor="password">Пароль:</label>
         <input

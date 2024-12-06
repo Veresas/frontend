@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useApi } from '../context/ApiContext';
-
+import { getJwtFromCookie } from '../modules/Coookie';
 const useServerRequest = () => {
   const { baseUrl } = useApi();
-  const [data, setData] = useState(null);
+  const [reqData, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,6 +20,11 @@ const useServerRequest = () => {
           'Content-Type': 'application/json', //  Измените, если необходимо
         },
       };
+      const jwtToken = getJwtFromCookie("jwtToken");
+
+      if (jwtToken) {
+        options.headers.Authorization = `Bearer ${jwtToken}`;
+      }
 
       if (body) {
         options.body = JSON.stringify(body);
@@ -34,6 +39,8 @@ const useServerRequest = () => {
 
       const responseData = await response.json();
       setData(responseData);
+      return responseData;
+      
     } catch (err) {
       setError(err);
     } finally {
@@ -41,7 +48,7 @@ const useServerRequest = () => {
     }
   };
 
-  return { data, error, loading, makeRequest };
+  return { reqData, error, loading, makeRequest };
 };
 
 export default useServerRequest;

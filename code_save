@@ -1,0 +1,13 @@
+<div>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
+        />
+        {errors.email && <span>Введите корректный email.</span>}
+      </div>
+
+
+
+      <Route path="/pages/FilmPage/:id" element={<FilmPage />} />
