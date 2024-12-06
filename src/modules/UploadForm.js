@@ -4,13 +4,11 @@ import { useApi } from '../context/ApiContext';
 import axios from 'axios';
 import { getJwtFromCookie } from '../modules/Coookie';
 const UploadForm = () => {
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit } = useForm();
   
   const { baseUrl } = useApi();
   const [photoFile, setPhotoFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
-  const [textData, setTextData] = useState('');
-
   
   const onSubmit = (data) => {
     const formData = new FormData();

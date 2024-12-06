@@ -3,7 +3,7 @@ import useFetchFile from '../hooks/useFetchFile';
 import { useNavigate } from 'react-router-dom';
 
 const MovieCard = ({ movie }) => {
-  const { data, loading, error, fetchData, cancelFetch } = useFetchFile();
+  const { data,  fetchData} = useFetchFile();
   const [file, setFile] = useState(null);
 
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const MovieCard = ({ movie }) => {
   useEffect(() => { 
     const fetchMovies = async () => {
       try{
-        const url = `/films/p/${movie.poster}`;
+        const url = `/films/p/${movie.poster}.jpg`;
         await fetchData(url);
         setFile(data);
       

@@ -1,14 +1,11 @@
-import logo from './logo.svg';
-import {BrowserRouter, Routes, Route, link} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
 import Home from './pages/homePage';
 import Account from './pages/accountPage';
-import useRouteTracking from './hooks/useRouteTracking';
 import RegForm from './pages/regForm';
 import LoginForm from './pages/loginPage';
 import { ApiProvider } from './context/ApiContext';
 import PersonPage from './pages/PersonPage';
-import FilmPage from './pages/FilmPage';
 import Admin from './pages/adminPage';
 function App() {
 
