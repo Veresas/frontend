@@ -8,10 +8,10 @@ const Account = () =>{
     const [accessGranted, setAccessGranted] = useState(false);
     const {reqData, makeRequest } = useServerRequest();
     const [info, setInfo] = useState(null);
-    
+
     useEffect (() => {
         const takeInfo = async () =>{
-            await makeRequest(`/acc/info/${id}`, 'GET')
+            await makeRequest(`/acc/${id}`, 'GET')
         }
         
         if(accessGranted === true && !reqData){

@@ -9,7 +9,7 @@ import FilmPage from './pages/filmPage';
 import Header from './modules/Header';
 import Footer from './modules/Footer';
 import Account from './pages/accountPage';
-
+import AcLair from './pages/acLair';
 function App() {
 
   
@@ -25,6 +25,7 @@ function App() {
           <Route path="/addFilm" element={<Admin />} />
           <Route path="/FilmPage/:id" element={<FilmPage />} />
           <Route path="/acc/:id" element={<Account />} />
+          <Route path='/aclair' element={<AcLair />} />
         </Routes>
       <Footer />
       </BrowserRouter>

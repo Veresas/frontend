@@ -18,7 +18,17 @@ const RegForm = () => {
         />
         {errors.name && <span>Имя обязательно и должно содержать минимум 3 символа.</span>}
       </div>
-      
+
+      <div>
+        <label htmlFor="email">Почта:</label>
+        <input
+          type="email"
+          id="email"
+          {...register("email", { required: true, minLength: 3 })}
+        />
+        {errors.name && <span>Имя обязательно и должно содержать минимум 3 символа.</span>}
+      </div>
+
       <div>
         <label htmlFor="password">Пароль:</label>
         <input
