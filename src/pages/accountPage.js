@@ -1,9 +1,9 @@
 import React from "react";
 
-function Account(){
+const Account = () =>{
     return(
         <div>
-            акк
+            
         </div>
     )
 }

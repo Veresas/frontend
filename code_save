@@ -1,13 +1,100 @@
-<div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
-        />
-        {errors.email && <span>Введите корректный email.</span>}
-      </div>
+import React, { useState, useEffect, useRef} from 'react';
+import useFetchFile from '../hooks/useFetchFile';
+import { useApi } from '../context/ApiContext';
+
+const Video = ({id}) =>{
+  const { baseUrl } = useApi();
+  const [videoData, setVideoData] = useState(null); // Initialize to null
+  const [videoSrc, setVideoSrc] = useState(''); // State to hold the video source
+  const videoRef = useRef(null);
+  let currentRangeStart = 0;
+  let bufferSize = 1024 * 1024; // 1MB buffer
+  const videoUrl = `${baseUrl}/v/${id}.mp4`
+  useEffect(() => {
+    const fetchVideoChunk = async () => {
+      const response = await fetch(videoUrl, {
+        headers: {
+          'Range': `bytes=${currentRangeStart}-${currentRangeStart + bufferSize - 1}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.error('Network response was not ok', response);
+        return;
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      setVideoSrc(url); // Update videoSrc state
+      setVideoData(true); // Indicate data is loaded (or some other relevant data)
+      currentRangeStart += bufferSize;
+    };
+
+    const handleTimeUpdate = () => {
+      // Add more sophisticated buffering logic here if needed
+      if (videoRef.current.currentTime) {
+          // Example: fetch next chunk if less than 5 seconds of video is buffered
+          //if (videoRef.current.buffered.end(0) - videoRef.current.currentTime < 5) {
+          //  fetchVideoChunk();
+          //}
+      }
+    };
+
+    // Initial fetch
+    fetchVideoChunk();
+
+    videoRef.current.addEventListener('timeupdate', handleTimeUpdate);
+    return () => {
+      videoRef.current.removeEventListener('timeupdate', handleTimeUpdate);
+      URL.revokeObjectURL(videoSrc); // Clean up Blob URL on unmount
+    };
+  }, [id]);
+
+    
+    
+    return(
+      <video ref={videoRef} controls width="100%" style={{display: videoData ? "block" : "none"}}>
+
+    </video>
+    )
+
+}
+export default Video
 
 
+import React, { useState, useEffect } from 'react';
+import useFetchFile from '../hooks/useFetchFile';
 
-      <Route path="/pages/FilmPage/:id" element={<FilmPage />} />
+const Video = ({id}) =>{
+    const {data,  fetchData} = useFetchFile();
+    const [file, setFile] = useState(null);
+
+    useEffect(() =>{
+        const fetchMovies = async () => {
+            try{
+              const url = `/films/v/${id}.mp4`;
+              await fetchData(url);
+              setFile(data);
+            
+            }catch(ex){
+      
+            }
+          };
+
+          fetchMovies();
+    },[]);
+    
+    if (file && file.url) {
+    return(
+        <div className="video-player">
+          <video controls width="100%">
+            <source src={file.url} type="video/mp4" />
+            Ваш браузер не поддерживает воспроизведение видео.
+          </video>
+        </div>
+    )}else{
+      return <p>loading</p>;
+    }
+
+}
+export default Video

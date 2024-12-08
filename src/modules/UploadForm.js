@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useApi } from '../context/ApiContext';
 import axios from 'axios';
 import { getJwtFromCookie } from '../modules/Coookie';
+import './css/UploadForm.css'; 
+
 const UploadForm = () => {
   const { register, handleSubmit } = useForm();
   
@@ -19,7 +21,7 @@ const UploadForm = () => {
     const jwtToken = getJwtFromCookie("jwtToken");
 
     
-    axios.post(`${baseUrl}/upload`, formData, {
+    axios.post(`${baseUrl}/films/upload`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${jwtToken}`,

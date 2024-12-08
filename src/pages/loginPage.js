@@ -4,7 +4,7 @@ import useServerRequest from '../hooks/useServerRequest';
 import { setJwtInCookie } from '../modules/Coookie';
 const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { reqData, error, loading, makeRequest } = useServerRequest();
+  const { error, loading, makeRequest } = useServerRequest();
   const onSubmit = async (data) =>{
     try{
         const response = await makeRequest('/acc/login', 'POST', data); // Ждем ответа

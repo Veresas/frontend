@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import useServerRequest from '../hooks/useServerRequest';
+import './css/MovieList.css';
+
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
 

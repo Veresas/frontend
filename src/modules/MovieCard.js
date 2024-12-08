@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useFetchFile from '../hooks/useFetchFile';
 import { useNavigate } from 'react-router-dom';
-
+import './css/MovieCard.css';
 const MovieCard = ({ movie }) => {
   const { data,  fetchData} = useFetchFile();
   const [file, setFile] = useState(null);
@@ -9,7 +9,7 @@ const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/pages/FilmPage/${movie.filme}`); // Переход на страницу /movie/имя_фильма
+    navigate(`/FilmPage/${movie.poster}`); // Переход на страницу /movie/имя_фильма
   };
 
   useEffect(() => { 

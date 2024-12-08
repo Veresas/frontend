@@ -1,0 +1,23 @@
+/* Основной контейнер для страницы */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Заполняем всю высоту экрана */
+  display: flex;
+  flex-direction: column; /* Размещение элементов по вертикали */
+}
+
+/* Основной контейнер для контента */
+.main-content {
+  flex: 1; /* Контент будет занимать все доступное пространство */
+}
+
+/* Стили для футера */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 16px;
+  margin-top: auto; /* Это гарантирует, что футер всегда будет внизу */
+}

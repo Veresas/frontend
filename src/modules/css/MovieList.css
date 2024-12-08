@@ -1,0 +1,21 @@
+/* Контейнер для списка фильмов */
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Поддержка адаптивности для разных экранов */
+  @media (max-width: 768px) {
+    .movie-card {
+      width: 200px; /* Уменьшаем ширину на меньших экранах */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .movie-card {
+      width: 150px; /* Еще меньше ширина для мобильных */
+    }
+  }
+  
