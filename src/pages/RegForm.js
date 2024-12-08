@@ -5,7 +5,7 @@ import useServerRequest from '../hooks/useServerRequest';
 const RegForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { makeRequest } = useServerRequest();
-  const onSubmit = async (data) => makeRequest('/acc/reg', 'POST', data);
+  const onSubmit = async (data) => makeRequest('/A/reg', 'POST', data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

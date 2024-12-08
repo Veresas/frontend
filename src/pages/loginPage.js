@@ -1,15 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useServerRequest from '../hooks/useServerRequest';
-import { setJwtInCookie } from '../modules/Coookie';
+import { setJwtInCookie, setUsernameCookie } from '../modules/Coookie';
 const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { error, loading, makeRequest } = useServerRequest();
   const onSubmit = async (data) =>{
     try{
-        const response = await makeRequest('/acc/login', 'POST', data); // Ждем ответа
-        const token = response.token;
-        await setJwtInCookie(token);
+        const response = await makeRequest('/A/login', 'POST', data); // Ждем ответа
+        await setJwtInCookie(response.token);
+        await setUsernameCookie(response.username);
         
     }catch (err){
         console.error("Ошибка регистрации:", err);

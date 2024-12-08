@@ -7,7 +7,7 @@ const useServerRequest = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const makeRequest = async (path, method, body) => {
+  const makeRequest = async (path, method, body, chek) => {
     setLoading(true);
     setError(null);
     setData(null);
@@ -31,7 +31,15 @@ const useServerRequest = () => {
       }
 
       const response = await fetch(url, options);
-
+      
+      if(chek){
+        if(response.ok){
+          return true;
+        }else{
+          return false;
+        }
+      }
+      
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ message: 'Ошибка сервера' })); // Обработка ошибок ответа
         throw new Error(errorData.message || response.statusText);
