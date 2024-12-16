@@ -57,7 +57,7 @@ const LoginForm = () => {
         />
         {errors.password && <span>Пароль обязательно и должен содержать минимум 6 символов.</span>}
       </div>
-      <button type="submit">Зарегистрироваться</button>
+      <button type="submit">Войти</button>
     </form>
   );
 };
