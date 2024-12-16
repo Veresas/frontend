@@ -2,12 +2,16 @@ import React, {useEffect, useState} from "react";
 import { ChekAcess } from "../modules/chekAcces";
 import useServerRequest from '../hooks/useServerRequest';
 import { useParams } from 'react-router-dom';
+import { removeCookie } from "../modules/Coookie";
+import { useNavigate } from 'react-router-dom';
 
 const Account = () =>{
     const { id } = useParams();
     const [accessGranted, setAccessGranted] = useState(false);
     const {reqData, makeRequest } = useServerRequest();
     const [info, setInfo] = useState(null);
+    const navigate = useNavigate();
+    const [clik, setClik] = useState(null);
 
     useEffect (() => {
         const takeInfo = async () =>{
@@ -20,19 +24,28 @@ const Account = () =>{
             setInfo(reqData);
         }
 
-    }, [accessGranted, reqData])
+        if(clik){
+            navigate("/log");
+        }
+
+    }, [accessGranted, reqData, clik])
     
     if (!accessGranted) {
         return <ChekAcess onAccessChecked={setAccessGranted} />;
     }
+    const handleExitClick = () => {
+        removeCookie("Username");
+        removeCookie("jwtToken");
+        setClik(true);
+    };
 
     if(info){
         return(
             <div>
                 <h1>Личная страница</h1>
-                <p>Имя: {info.name || 'Не указано'}</p>  {/* Обработка случая, когда info.name не существует */}
-                <p>Почта: {info.email || 'Не указано'}</p> {/* Обработка случая, когда info.email не существует */}
-                {/* Добавьте другие поля из info по необходимости */}
+                <p>Имя: {info.name || 'Не указано'}</p>  
+                <p>Почта: {info.email || 'Не указано'}</p> 
+                <button onClick={handleExitClick}>Выйти из аккаунта</button>
             </div>
         );
     }

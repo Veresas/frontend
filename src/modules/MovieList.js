@@ -3,7 +3,7 @@ import MovieCard from './MovieCard';
 import useServerRequest from '../hooks/useServerRequest';
 import './css/MovieList.css';
 
-const MovieList = () => {
+const MovieList = ({id}) => {
   const [movies, setMovies] = useState([]);
 
   const { error, loading, makeRequest } = useServerRequest();
@@ -11,7 +11,7 @@ const MovieList = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       
-        const rep = await makeRequest("/films/filmList", "GET") 
+        const rep = await makeRequest(`/films/filmList/${id}`, "GET") 
         const data = rep;
         setMovies(data);
       

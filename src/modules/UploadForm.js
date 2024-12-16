@@ -2,21 +2,29 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useApi } from '../context/ApiContext';
 import axios from 'axios';
-import { getJwtFromCookie } from '../modules/Coookie';
+import {getSomeCookie, getJwtFromCookie } from '../modules/Coookie';
 import './css/UploadForm.css'; 
 
 const UploadForm = () => {
   const { register, handleSubmit } = useForm();
-  
+
   const { baseUrl } = useApi();
   const [photoFile, setPhotoFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
   
   const onSubmit = (data) => {
+    if (photoFile){
+     var file = photoFile,parts = file.name.split('.');
+     var type = parts.pop();
+
+    }
+    const id = getSomeCookie("Username");
+
     const formData = new FormData();
     formData.append("title", data.title);
     if (photoFile) formData.append("photo", photoFile);
     if (videoFile) formData.append("video", videoFile);
+    formData.append("id", id);
 
     const jwtToken = getJwtFromCookie("jwtToken");
 
@@ -44,7 +52,7 @@ const UploadForm = () => {
       <input {...register("photo")} type="file" accept="image/*" onChange={(e) => setPhotoFile(e.target.files[0])} />
 
       <label htmlFor="video">Фильм:</label>
-      <input {...register("video")} type="file" accept="video/*" onChange={(e) => setVideoFile(e.target.files[0])} />
+      <input {...register("video")} type="file" required="true" accept="video/*" onChange={(e) => setVideoFile(e.target.files[0])} />
       
       <button type="submit">Upload All</button>
     </form>

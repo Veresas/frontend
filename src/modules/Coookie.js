@@ -17,3 +17,7 @@ export function setUsernameCookie(token, expirationDays = 1){
 export function getSomeCookie(name){
     return Cookies.get(name)
 }
+
+export function removeCookie(name){
+    Cookies.remove(name);
+}

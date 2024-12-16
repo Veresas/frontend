@@ -98,3 +98,6 @@ const Video = ({id}) =>{
 
 }
 export default Video
+
+
+<li><Link to="/addFilm">Add Film</Link></li>
