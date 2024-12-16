@@ -1,0 +1,37 @@
+.video-container {
+    display: flex;
+    justify-content: center; /* Горизонтальное центрирование */
+    align-items: center; /* Вертикальное центрирование */
+    margin: 20px;
+    height: 100%;
+
+}
+
+.video-player {
+    max-width: 80%;
+    width: 720px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden; /* Обрезаем, если видео вылезает за рамки */
+    margin: auto;
+    margin-top: 20px; /* отступ сверху */
+}
+
+.video-element {
+  width: 100%;
+    height: auto; /* Сохранение пропорций */
+    display: block; /* Убираем пробел снизу */
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+}
+
+.loading-text {
+  font-size: 1.2em;
+  color: #555;
+}
