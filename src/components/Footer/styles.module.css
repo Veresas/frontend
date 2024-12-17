@@ -1,0 +1,14 @@
+/* Основной контейнер для контента */
+.main-content {
+	flex: 1; /* Контент будет занимать все доступное пространство */
+}
+
+/* Стили для футера */
+.footer2 {
+	background-color: #333;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	font-size: 16px;
+	margin-top: auto; /* Это гарантирует, что футер всегда будет внизу */
+}
