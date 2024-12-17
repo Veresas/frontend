@@ -1,11 +1,11 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
 import Home from './pages/homePage';
-import RegForm from './pages/regForm';
+import RegForm from './pages/RegForm';
 import LoginForm from './pages/loginPage';
 import { ApiProvider } from './context/ApiContext';
 import Admin from './pages/adminPage';
-import FilmPage from './pages/filmPage';
+import FilmPage from './pages/FilmPage';
 import Header from './modules/Header';
 import Footer from './modules/Footer';
 import Account from './pages/accountPage';

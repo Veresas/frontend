@@ -12,13 +12,13 @@ const LoginForm = () => {
 
   const onSubmit = async (data) =>{
     try{
-        const response = await makeRequest('/A/login', 'POST', data); // Ждем ответа
+        const response = await makeRequest('/A/login', 'POST', data);
         await setJwtInCookie(response.token);
         await setUsernameCookie(response.username);
         setGo(true);
     }catch (err){
         console.error("Ошибка регистрации:", err);
-        alert(`Ошибка регистрации: ${err.message}`); // Или более сложная обработка ошибок    
+        alert(`Ошибка регистрации: ${err.message}`);
     }
   } 
   
