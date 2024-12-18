@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import useFetchFile from "../hooks/useFetchFile";
 import { useNavigate } from "react-router-dom";
-import "../styles/MovieCard.module.css";
+import "../styles/MovieCard.css";
 
 const MovieCard = ({ movie }) => {
 	const { data, fetchData } = useFetchFile();
 	const [file, setFile] = useState(null);
-
 	const navigate = useNavigate();
 
 	const handleClick = () => {
@@ -18,12 +17,17 @@ const MovieCard = ({ movie }) => {
 			try {
 				const url = `/films/p/${movie.poster}.jpg`;
 				await fetchData(url);
-				setFile(data);
+
 			} catch (ex) {}
 		};
 
-		fetchMovies();
-	}, [movie]);
+		if(data){
+			setFile(data);
+		}else{
+			fetchMovies();
+        }
+	}, [data]);
+
 	if (file && file.url) {
 		return (
 			<div className="movie-card" onClick={handleClick}>

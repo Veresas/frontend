@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useServerRequest from "../../hooks/useServerRequest";
-import { setJwtInCookie, setUsernameCookie } from "../../utils/Coookie";
+import { setJwtInCookie, setUsernameCookie, getSomeCookie} from "../../utils/Coookie";
 import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
@@ -20,8 +20,8 @@ export const LoginPage = () => {
 
 			await setJwtInCookie(response.token);
 			await setUsernameCookie(response.username);
-
-			navigate("/account");
+			const id = getSomeCookie("Username");
+			navigate(`/acc/${id}`);
 		} catch (err) {
 			console.error("Ошибка регистрации:", err);
 			alert(`Ошибка регистрации: ${err.message}`);

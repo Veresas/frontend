@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import useServerRequest from "../hooks/useServerRequest";
-import "../styles/MovieList.module.css";
+import "../styles/MovieList.css";
 
 const MovieList = ({ id }) => {
 	const [movies, setMovies] = useState([]);

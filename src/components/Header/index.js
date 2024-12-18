@@ -19,11 +19,11 @@ export const Header = () => {
 					<li>
 						<Link to="/log">Войти</Link>
 					</li>
-					{name && (
-						<li>
-							<Link to="/aclair">Моя страница</Link>
-						</li>
-					)}
+				
+					<li>
+						<Link to={`/acc/${name}`}>Моя страница</Link>
+					</li>
+					
 				</ul>
 			</nav>
 		</header>

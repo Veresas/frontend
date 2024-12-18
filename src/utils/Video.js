@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useFetchFile from "../hooks/useFetchFile";
-import "../styles/Video.module.css";
+import "../styles/Video.css";
 
 const Video = ({ id }) => {
 	const { data, loading, fetchData } = useFetchFile();
