@@ -1,0 +1,6 @@
+export * from "./ChekAccess"
+export * from "./Cookie"
+export * from "./MovieCard"
+export * from "./MovieList"
+export * from "./UploadForm"
+export * from "./Vide"
