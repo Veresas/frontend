@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useServerRequest from "../hooks/useServerRequest";
+import useServerRequest from "../../hooks/useServerRequest";
 import { useNavigate } from "react-router-dom";
 
 export function ChekAcess({ onAccessChecked }) {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import MovieCard from "./MovieCard";
-import useServerRequest from "../hooks/useServerRequest";
-import "../styles/MovieList.css";
+import useServerRequest from "../../hooks/useServerRequest";
+import "./MovieList.css";
+import { MovieCard } from "../MovieCard";
 
-const MovieList = ({ id }) => {
+export const MovieList = ({ id, isCatalog }) => {
 	const [movies, setMovies] = useState([]);
 
 	const { error, loading, makeRequest } = useServerRequest();
@@ -29,10 +29,8 @@ const MovieList = ({ id }) => {
 	return (
 		<div className="movie-list">
 			{movies.map((movie) => (
-				<MovieCard key={movie.id} movie={movie} /> //  id - уникальный идентификатор фильма
+				<MovieCard key={movie.id} movie={movie} isControls={isCatalog} /> //  id - уникальный идентификатор фильма
 			))}
 		</div>
 	);
 };
-
-export default MovieList;

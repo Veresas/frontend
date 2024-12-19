@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./styles.module.css"; // Подключаем стили
-import { getSomeCookie } from "../../utils/Coookie";
+import { getSomeCookie } from "../../utils";
 
 export const Header = () => {
 	const name = getSomeCookie("Username");

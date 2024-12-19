@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import useFetchFile from "../hooks/useFetchFile";
-import "../styles/Video.css";
+import useFetchFile from "../../hooks/useFetchFile";
+import "./Video.css";
 
-const Video = ({ id }) => {
+export const Video = ({ id }) => {
 	const { data, loading, fetchData } = useFetchFile();
 	const [file, setFile] = useState(null);
 
@@ -48,5 +48,3 @@ const Video = ({ id }) => {
 		);
 	}
 };
-
-export default Video;

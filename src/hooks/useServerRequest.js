@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useApi } from "../context/ApiContext";
-import { getJwtFromCookie } from "../utils/Coookie";
+import { getJwtFromCookie } from "../utils";
+
 const useServerRequest = () => {
 	const { baseUrl } = useApi();
 	const [reqData, setData] = useState(null);

@@ -70,7 +70,7 @@ export const RegisterPage = () => {
 			} catch (error) {
 				console.error("Ошибка проверки имени", error);
 				setNameError("Ошибка проверки имени.");
-				return "Ошибка проверки имени."; // Вернём ошибку для react-hook-form
+				return "Ошибка проверки имени.";
 			}
 		}
 		return true;
@@ -93,8 +93,8 @@ export const RegisterPage = () => {
 						validate: validateName,
 					})}
 					onBlur={async () => {
-						await trigger("name"); // Сначало валидация
-						await checkNameUniqueness(watch("name")); // Проверка уникальности
+						await trigger("name"); 
+						await checkNameUniqueness(watch("name")); 
 					}}
 				/>
 				{errors.name && <span style={{ color: "red" }}>{errors.name.message}</span>}
