@@ -8,9 +8,10 @@ import {
 	AdminPage,
 	FilmPage,
 	HomePage,
-	LoginPage,
 	RegisterPage,
 } from "./pages";
+
+import LoginForm from "./pages/LoginPage";
 import { MainLayout } from "./layouts";
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/reg" element={<RegisterPage />} />
-							<Route path="/log" element={<LoginPage />} />
+							<Route path="/log" element={<LoginForm/>} />
 							<Route path="/addFilm" element={<AdminPage />} />
 							<Route path="/FilmPage/:id" element={<FilmPage />} />
 							<Route path="/acc/:id" element={<AccountPage />} />

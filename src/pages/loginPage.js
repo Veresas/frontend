@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useServerRequest from '../hooks/useServerRequest';
-import { setJwtInCookie, setUsernameCookie } from '../modules/Coookie';
+import { setJwtInCookie, setUsernameCookie } from '../utils';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
