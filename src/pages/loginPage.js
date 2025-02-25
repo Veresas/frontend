@@ -11,24 +11,33 @@ const LoginForm = () => {
 		formState: { errors },
 	} = useForm();
 
+
 	const { error, loading, makeRequest } = useServerRequest();
 	const navigate = useNavigate();
 	const [er, setEr] = useState(null);
+  const [block, setBlock] = useState(null);
+  const [t, setT] = useState(sessionStorage.getItem('tryes'));
 
 	const onSubmit = async (data) => {
-		try {
-			setEr(false);
-			const response = await makeRequest("/A/login", "POST", data);
-			await setJwtInCookie(response.token);
-			await setUsernameCookie(response.username);
-			const id = getSomeCookie("Username");
-
-			
-			navigate(`/acc/${id}`);
-		} catch (err) {
-
-			setEr(true);
-		}
+    if(t >= 1){
+      try {
+        setEr(false);
+        const response = await makeRequest("/A/login", "POST", data);
+        await setJwtInCookie(response.token);
+        await setUsernameCookie(response.username);
+        const id = getSomeCookie("Username");
+  
+        
+        navigate(`/acc/${id}`);
+      } catch (err) {
+        sessionStorage.setItem('tryes', t - 1);
+        setT(sessionStorage.getItem('tryes'));
+        setEr(true);
+      }
+    }else{
+      setEr(false);
+      setBlock(true);
+    }
 	};
 
 	if (loading) {
@@ -66,8 +75,11 @@ const LoginForm = () => {
 			</div>
 
 			{er && (
-					<span>Неврный логин или пароль</span>
+					<span>Неврный логин или пароль. Осталось {t}  попытки</span>
 				)}
+      {block && (
+        <span>Доступ запрещен</span>
+      )}
 			<button type="submit">Войти</button>
 		</form>
 	);

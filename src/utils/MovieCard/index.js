@@ -1,13 +1,17 @@
 import React, { useState, useEffect} from "react";
 import useFetchFile from "../../hooks/useFetchFile";
+import { getSomeCookie } from "../Cookie";
+import useServerRequest from "../../hooks/useServerRequest";
 import { useNavigate } from "react-router-dom";
 import "./MovieCard.css";
+import { Alert } from "bootstrap";
 
 export const MovieCard = ({ movie, isControls }) => {
 	const { data, fetchData } = useFetchFile();
 	const [file, setFile] = useState(null);
 	const navigate = useNavigate();
-
+	const { reqData, makeRequest } = useServerRequest();
+	const [delet, setDelet] = useState(null);
 	const handleClick = () => {
 		navigate(`/FilmPage/${movie.poster}`);
 	};
@@ -16,6 +20,12 @@ export const MovieCard = ({ movie, isControls }) => {
 		event.stopPropagation();
 		navigate(`/addFilm/${movie.id}`)
 	};
+
+	const handelDeletClik = async (event) =>{
+		event.stopPropagation();
+		await makeRequest(`/A/FilmDelet/676452bd53bf8948d929748e`, "DELETE", {userid:"6764517353bf8948d929748d"});
+	};
+
 	useEffect(() => {
 		const fetchMovies = async () => {
 			try {
@@ -32,6 +42,7 @@ export const MovieCard = ({ movie, isControls }) => {
         }
 	}, [data]);
 
+
 	if (file && file.url) {
 		return (
 			<div className="movie-card" onClick={handleClick}>
@@ -40,7 +51,7 @@ export const MovieCard = ({ movie, isControls }) => {
 				{isControls && (
 					<d>
 						<button onClick={handelRemakeClik}>ред</button>
-						<button>удалить</button>
+						<button onClick={handelDeletClik}>удалить</button>
 					</d>
 				)}
 			</div>
