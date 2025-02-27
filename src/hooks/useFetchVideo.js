@@ -9,6 +9,7 @@ const useFetchFile = () => {
   const mediaSourceRef = useRef(null);
   const sourceBufferRef = useRef(null);
   const videoUrlRef = useRef(null);
+  const [isSourceReady, setIsSourceReady] = useState(false); 
 
   // Инициализация MediaSource
   useEffect(() => {
@@ -16,16 +17,21 @@ const useFetchFile = () => {
     mediaSourceRef.current = mediaSource;
     videoUrlRef.current = URL.createObjectURL(mediaSource);
 
-    mediaSource.addEventListener('sourceopen', () => {
+    const handleSourceOpen = () => {
       const mimeType = 'video/mp4; codecs="avc1.64001e, mp4a.40.2"';
       sourceBufferRef.current = mediaSource.addSourceBuffer(mimeType);
-    });
+      setIsSourceReady(true); // Устанавливаем готовность
+    };
+
+    mediaSource.addEventListener('sourceopen', handleSourceOpen);
 
     return () => {
-      if (mediaSourceRef.current) {
-        mediaSourceRef.current.endOfStream();
-        URL.revokeObjectURL(videoUrlRef.current);
+      mediaSource.removeEventListener('sourceopen', handleSourceOpen);
+      if (mediaSource.readyState === 'open') {
+        mediaSource.endOfStream();
       }
+        URL.revokeObjectURL(videoUrlRef.current);
+      
     };
   }, []);
 
@@ -45,6 +51,10 @@ const useFetchFile = () => {
 
   // Основная функция загрузки
   const fetchData = useCallback(async (id, chunkSize = 1024 * 1024) => { // Чанки по 1 МБ
+    if (!id || !isSourceReady) { // Проверяем готовность
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     try {
       let startByte = 0;
@@ -77,7 +87,8 @@ const useFetchFile = () => {
     loading, 
     error, 
     fetchData, 
-    cancelFetch: () => controller?.abort() 
+    cancelFetch: () => controller?.abort(),
+    isSourceReady
   };
 };
 

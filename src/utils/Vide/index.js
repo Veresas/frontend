@@ -1,61 +1,33 @@
-import React, { useState, useEffect, useRef } from "react";
-import useFetchFile from "../../hooks/useFetchFile";
-//import useFetchVideo from "../../hooks/useFetchVideo";
-import "./Video.css";
+import React, { useEffect, useRef } from 'react';
+import * as dashjs from 'dashjs';
+import useServerRequest from '../../hooks/useServerRequest' 
+import { useApi } from '../../context/ApiContext';
 
 export const Video = ({ id }) => {
-	const { data, loading, fetchData } = useFetchFile(true);
-	const [mediaSourceReady, setMediaSourceReady] = useState(false);
-	const [startChunk, setStartChunk] = useState(0);
-	const [endChunk, setEndChunk] = useState(0);
-	const videoRef = useRef(null); 
+	const videoRef = useRef(null);
+	const { baseUrl } = useApi();
+	const {reqData, makeRequest} = useServerRequest();
+	
+  useEffect(() => {
+	console.log("dashjs:", dashjs); // Добавьте эту строку
+    if (!dashjs) {
+        console.error("dashjs is not loaded");
+        return; // Прекратить выполнение, если dashjs не загружен
+    }
+    const url = `${baseUrl}/films/v/${id}/manifest.mpd`;
 
-	if (id === `t`) {
-		id = `6235397-hd_1080_1920_25fps`;
-	}
+    const player = dashjs.MediaPlayer().create();
+	player.initialize(videoRef.current, url, true);
+    player.setAutoPlay(true);
 
-	useEffect(() => {
-		const fetchMovies = async () => {
-			try {
-				setEndChunk(startChunk + 10024);
-				const url = `/films/v/${id}.mp4`;
-				await fetchData(url, startChunk, endChunk);
-				setStartChunk(endChunk + 1);
-				setMediaSourceReady(true);
-			} catch (ex) {
-				console.error("Error fetching video:", ex);
-			}
-		};
+    return () => {
+      player.reset();
+    };
+  }, [id]);
 
-		fetchMovies();
-	}, [id, fetchData, startChunk]);
-
-	useEffect(() => {
-		if (data?.url && videoRef.current) {
-			videoRef.current.src = data.url;
-		  }
-	}, [data]);
-
-	if (mediaSourceReady && data?.url) {
-		return (
-			<div className="video-container">
-				<div className="video-player">
-					<video 
-						controls
-						className="video-element"
-						ref={videoRef}
-						onError={(e) => console.error('Video error:', e.target.error)}>
-						
-						Ваш браузер не поддерживает воспроизведение видео.
-					</video>
-				</div>
-			</div>
-		);
-	} else {
-		return (
-			<div className="loading-container">
-				<p className="loading-text">Загрузка...</p>
-			</div>
-		);
-	}
+  return (
+    <div>
+      <video ref={videoRef} controls />
+    </div>
+  );
 };
