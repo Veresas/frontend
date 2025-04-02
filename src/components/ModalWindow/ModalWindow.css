@@ -1,0 +1,52 @@
+/* IssueModal.css */
+
+.ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Убедитесь, что накладывается поверх всего остального */
+    position: fixed; /* Важно для правильного позиционирования */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .ReactModal__Content {
+    top: 50% !important;       /* overwrite inline style                               */
+    left: 50% !important;      /* overwrite inline style                               */
+    right: auto !important;   /* overwrite inline style                               */
+    bottom: auto !important;  /* overwrite inline style                               */
+    margin-right: -50% !important; /* overwrite inline style                               */
+    transform: translate(-50%, -50%) !important; /* overwrite inline style                               */
+  
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    outline: none; /* Убирает обводку при фокусировке */
+  }
+  
+  /* Дополнительные стили для содержимого, хедера и т.д., если необходимо */
+  .modal-header {
+    display: flex;
+    justify-content: flex-end; /* Кнопка закрытия справа */
+    margin-bottom: 10px;
+  }
+  
+  .modal-content {
+    /* Стили для содержимого модального окна */
+  }
+  
+  /* Стили для кнопки закрытия */
+  .modal-header button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+  }
