@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useServerRequest from "../../hooks/useServerRequest";
-import { setJwtInCookie, setUsernameCookie, getSomeCookie} from "../../utils"
+import { setJwtInCookie, setUserIdCookie, getSomeCookie} from "../../utils"
 import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
@@ -20,8 +20,8 @@ export const LoginPage = () => {
 			setEr(false);
 			const response = await makeRequest("/A/login", "POST", data);
 			await setJwtInCookie(response.token);
-			await setUsernameCookie(response.username);
-			const id = getSomeCookie("Username");
+			await setUsreIdCookie(response.userId);
+			const id = getSomeCookie("UserId");
 
 			
 			navigate(`/acc/${id}`);

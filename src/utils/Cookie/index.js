@@ -10,8 +10,8 @@ export function getJwtFromCookie() {
     return Cookies.get(JWT_COOKIE_NAME);
 }
 
-export function setUsernameCookie(token, expirationDays = 1){
-    Cookies.set("Username", token, {expires: expirationDays, secure: true, sameSite: "strict"})
+export function setUserIdCookie(token, expirationDays = 1){
+    Cookies.set("UserId", token, {expires: expirationDays, secure: true, sameSite: "strict"})
 }
 
 export function getSomeCookie(name){

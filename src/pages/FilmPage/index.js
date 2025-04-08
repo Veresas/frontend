@@ -1,22 +1,12 @@
 import React, { useEffect, useState} from "react";
 import { Video } from "../../utils";
 import { useParams, useSearchParams  } from "react-router-dom";
-import useServerRequest from '../../hooks/useServerRequest' 
 
 export const FilmPage = () => {
 	const [socket, setSocket] = useState(null);
 	const [searchParams] = useSearchParams();
   	const roomId = searchParams.get('roomId');
 	const [videoId, setVideoId] = useState(null);
-	const {reqData, makeRequest} = useServerRequest();
-
-	useEffect(() => {
-		const fetchMovies = async () => {
-			const rep = await makeRequest(`/films/filmList/${id}`, "GET");
-			const data = rep;
-			setVideoId(data);
-		};
-	})
 
 	useEffect(() => {
 
@@ -27,10 +17,20 @@ export const FilmPage = () => {
 		newSocket.onmessage = (event) => {
 		  const data = event.data;
 		  console.log("Получили сообщение", data)
+		  if (data.type === "movieId") {
+			setVideoId(data.value)
+			console.log("Фильм id: ", data.type)
+		  }
+
 		};
 		
 		newSocket.onopen = ( event ) => {
-			console.log("Открили вебсокет");
+			console.log("Открыли вебсокет");
+			const getFilmMassage = {
+				action: "join",
+				timestamp: new Date().toISOString()
+			}
+			socket.send(JSON.stringify(getFilmMassage))
 		}
 
 		newSocket.onclose = (event) => {
