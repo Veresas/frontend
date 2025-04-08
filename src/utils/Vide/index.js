@@ -1,25 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, forwardRef } from 'react';
 import * as dashjs from 'dashjs';
-import useServerRequest from '../../hooks/useServerRequest' 
 import { useApi } from '../../context/ApiContext';
 
-export const Video = ({ id }) => {
-	const videoRef = useRef(null);
-	const { baseUrl } = useApi();
-	const {reqData, makeRequest} = useServerRequest();
-	
+export const Video = forwardRef(({ id }, videoRef) => {
+  const { baseUrl } = useApi();
+
   useEffect(() => {
-	console.log("dashjs:", dashjs); // Добавьте эту строку
-    if (!dashjs) {
-        console.error("dashjs is not loaded");
-        return; // Прекратить выполнение, если dashjs не загружен
-    }
+    if (!dashjs) return;
+
     const url = `${baseUrl}/films/v/${id}/manifest.mpd`;
-
     const player = dashjs.MediaPlayer().create();
-	player.initialize(videoRef.current, url, true);
-    player.setAutoPlay(true);
-
+    player.initialize(videoRef.current, url, true);
+    player.setAutoPlay(false);
     return () => {
       player.reset();
     };
@@ -30,4 +22,4 @@ export const Video = ({ id }) => {
       <video ref={videoRef} controls />
     </div>
   );
-};
+});

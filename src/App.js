@@ -12,7 +12,6 @@ import {
 	LoginPage,
 } from "./pages";
 import { MainLayout } from "./layouts";
-import LoginForm from "./pages/LoginPage";
 function App() {
 	sessionStorage.setItem('tryes', 3);
 	return (
