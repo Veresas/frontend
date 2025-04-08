@@ -21,7 +21,11 @@ export const MovieCard = ({ movie, isControls }) => {
 	const handleClick = () => {
 		navigate(`/FilmPage/${movie.poster}`);
 	};
+	
+	const handelAcceptDeletClik = (event) =>{
 
+	};
+	
 	const handelRemakeClik = (event) => {
 		event.stopPropagation();
 		navigate(`/addFilm/${movie.id}`)

@@ -1,21 +1,21 @@
 import React, { useEffect, useState} from "react";
 import { Video } from "../../utils";
 import { useParams, useSearchParams  } from "react-router-dom";
-
+import { getSomeCookie} from "../../utils"
 export const FilmPage = () => {
 	const [socket, setSocket] = useState(null);
 	const [searchParams] = useSearchParams();
   	const roomId = searchParams.get('roomId');
 	const [videoId, setVideoId] = useState(null);
+	const userId = getSomeCookie("userId");
 
 	useEffect(() => {
 
-		const newSocket = new WebSocket(`ws://localhost:8080/ws?roomId=123`);
+		const newSocket = new WebSocket(`ws://localhost:8080/ws?roomId=${roomId}&userId=${userId}`);
 		setSocket(newSocket);
 	
-		// Обработка входящих сообщений
 		newSocket.onmessage = (event) => {
-		  const data = event.data;
+		  const data = JSON.parse(event.data);
 		  console.log("Получили сообщение", data)
 		  if (data.type === "movieId") {
 			setVideoId(data.value)
@@ -30,7 +30,7 @@ export const FilmPage = () => {
 				action: "join",
 				timestamp: new Date().toISOString()
 			}
-			socket.send(JSON.stringify(getFilmMassage))
+			newSocket.send(JSON.stringify(getFilmMassage))
 		}
 
 		newSocket.onclose = (event) => {

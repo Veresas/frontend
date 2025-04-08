@@ -20,11 +20,9 @@ export const LoginPage = () => {
 			setEr(false);
 			const response = await makeRequest("/A/login", "POST", data);
 			await setJwtInCookie(response.token);
-			await setUsreIdCookie(response.userId);
-			const id = getSomeCookie("UserId");
-
+			await setUserIdCookie(response.userId);
 			
-			navigate(`/acc/${id}`);
+			navigate(`/`);
 		} catch (err) {
 
 			setEr(true);
