@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState} from "react";
 import { Video } from "../../utils";
 import { useSearchParams  } from "react-router-dom";
 import { getSomeCookie} from "../../utils"
+import { useNavigate } from "react-router-dom";
 export const FilmPage = () => {
 	const [socket, setSocket] = useState(null);
 	const [searchParams] = useSearchParams();
   	const roomId = searchParams.get('roomId');
+	const navigate = useNavigate();
 	const [videoId, setVideoId] = useState(null);
 	const userId = getSomeCookie("UserId");
 	const [notRepitSeek, setNotRepitSeek] = useState(false);
@@ -13,6 +15,14 @@ export const FilmPage = () => {
 	const videoRef = useRef();
 
 	useEffect(() => {
+		if (!userId) {
+			navigate("/log");
+		}
+	}, [userId, navigate]);
+
+	useEffect(() => {
+		if (!userId) return;
+
 
 		const newSocket = new WebSocket(`ws://localhost:8080/ws?roomId=${roomId}&userId=${userId}`);
 		setSocket(newSocket);
@@ -66,8 +76,9 @@ export const FilmPage = () => {
 	  }, []);
 
 	useEffect(() => {
+		if (!socket || !videoId) return;
+		
 		const video = videoRef.current;
-		console.log("VIDEO:", video);
 		if (!video || !socket) return;
 
 		const onPlay = () => {

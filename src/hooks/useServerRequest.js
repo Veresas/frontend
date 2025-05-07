@@ -50,6 +50,7 @@ const useServerRequest = () => {
 
 			const responseData = await response.json();
 			setData(responseData);
+			console.log("Получение данных")
 			return responseData;
 		} catch (err) {
 			setError(err);

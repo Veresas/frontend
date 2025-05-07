@@ -24,7 +24,7 @@ function App() {
 							<Route path="/reg" element={<RegisterPage />} />
 							<Route path="/log" element={<LoginPage />} />
 							<Route path="/addFilm" element={<AdminPage />} />
-							<Route path="/FilmPage" element={<FilmPage />} />
+							<Route path="/filmPage" element={<FilmPage />} />
 							<Route path="/acc/:id" element={<AccountPage />} />
 						</Routes>
 					</MainLayout>

@@ -38,3 +38,63 @@
     opacity: 0.8;
   }
   
+  .radio-group {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .toggle-container {
+    display: flex;
+    position: relative;
+    width: 240px;
+    background: #e5e7eb;
+    border-radius: 9999px;
+    padding: 4px;
+  }
+  
+  .toggle-option {
+    flex: 1;
+    text-align: center;
+    padding: 8px 0;
+    font-weight: 500;
+    color: #4b5563;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.3s ease;
+  }
+  
+  .toggle-option input {
+    display: none;
+  }
+  
+  .toggle-option input:checked + span {
+    color: #ffffff;
+  }
+  
+  .toggle-slider {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    width: 50%;
+    background: #3b82f6;
+    border-radius: 9999px;
+    transition: transform 0.3s ease;
+  }
+  
+  .toggle-option:first-child input:checked ~ .toggle-slider {
+    transform: translateX(0);
+  }
+  
+  .toggle-option:last-child input:checked ~ .toggle-slider {
+    transform: translateX(100%);
+  }
