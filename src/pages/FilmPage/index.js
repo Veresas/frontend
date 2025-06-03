@@ -3,6 +3,11 @@ import { Video } from "../../utils";
 import { useSearchParams  } from "react-router-dom";
 import { getSomeCookie} from "../../utils"
 import { useNavigate } from "react-router-dom";
+import 'react-chat-elements/dist/main.css';
+import { MessageBox } from 'react-chat-elements';
+import "./FilmPage.css";
+import useServerRequest from "../../hooks/useServerRequest";
+
 export const FilmPage = () => {
 	const [socket, setSocket] = useState(null);
 	const [searchParams] = useSearchParams();
@@ -11,13 +16,31 @@ export const FilmPage = () => {
 	const [videoId, setVideoId] = useState(null);
 	const userId = getSomeCookie("UserId");
 	const [notRepitSeek, setNotRepitSeek] = useState(false);
-
+	const [messages, setMessages] = useState([]);
+	const [input, setInput] = useState('');
 	const videoRef = useRef();
+	const originalUrl = `/FilmPage?roomId=${roomId}`
+	const { error, makeRequest } = useServerRequest();
+	const [userName, setUserName] = useState('');
 
 	useEffect(() => {
+		const fetchUserName = async () => {
+			try {
+				const rep = await makeRequest(`/name`, "GET")
+				setUserName(rep.userName)
+				console.log(userName)
+			} catch{
+				console.error(error)
+			}
+		};
+
 		if (!userId) {
+			localStorage.setItem('returnUrl', originalUrl);
 			navigate("/log");
 		}
+
+		fetchUserName()
+
 	}, [userId, navigate]);
 
 	useEffect(() => {
@@ -56,6 +79,14 @@ export const FilmPage = () => {
 					setNotRepitSeek(true)
 				}
 
+				if (data.type === "mes") {
+					let reqMessage ={
+						userName: data.options.userName,
+						mesText: data.value
+					}
+					setMessages(prev => [...prev, reqMessage]);
+				}
+
 			  } catch (e) {
 				console.warn("Неформатированное сообщение:", event.data);
 			  }
@@ -74,6 +105,17 @@ export const FilmPage = () => {
 		return () => {
 		};
 	  }, []);
+	
+	const sendMessage = () => {
+			if (!input.trim()) return;
+			let userMessage ={
+				userName: userName,
+				mesText: input
+			}
+			setMessages(prev => [...prev, userMessage]);
+			setInput('')
+			socket.send(JSON.stringify({ action: "mes", content: userMessage}));
+	}
 
 	useEffect(() => {
 		if (!socket || !videoId) return;
@@ -120,11 +162,44 @@ export const FilmPage = () => {
 			video.removeEventListener("pause", onPause);
 			video.removeEventListener("seeked", onSeek);
 		};
-		}, [socket, videoId]);
+	}, [socket, videoId]);
 
 	return (
 		<div>
 			{videoId && <Video id={videoId} ref={videoRef} />}
+			<div className="chat-messages">
+                {messages.map((msg, i) => (
+                <MessageBox
+                    key={i}
+                    id={String(i)}
+                    position={'right'}
+                    type="text"
+                    text={msg.mesText}
+                    date={new Date()}
+                    title={msg.userName}
+                    focus={false}
+                    titleColor="#000"
+                    forwarded={false}
+                    replyButton={false}
+                    removeButton={false}
+                    status="received"
+                    notch={true}
+                    retracted={false}
+                    
+                />
+                ))}
+            </div>
+			    <div className="chat-input-block">
+                <input
+                className="chat-input"
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                placeholder="Введите сообщение..."
+                />
+                <button className="chat-send-button" onClick={sendMessage}>
+                    Отправить
+                </button>
+            </div>
 		</div>
 	);
 };

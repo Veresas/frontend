@@ -25,7 +25,7 @@ function App() {
 							<Route path="/log" element={<LoginPage />} />
 							<Route path="/addFilm" element={<AdminPage />} />
 							<Route path="/filmPage" element={<FilmPage />} />
-							<Route path="/acc/:id" element={<AccountPage />} />
+							<Route path="/acc" element={<AccountPage />} />
 						</Routes>
 					</MainLayout>
 				</BrowserRouter>

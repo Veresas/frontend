@@ -4,7 +4,6 @@ import { getSomeCookie } from "../Cookie";
 import useServerRequest from "../../hooks/useServerRequest";
 import { useNavigate } from "react-router-dom";
 import "./MovieCard.css";
-import { Alert } from "bootstrap";
 import { ModalWindow } from "../../components/ModalWindow";
 import { CopyLinkBox } from "../../utils"
 import { useApi } from "../../context/ApiContext";
@@ -20,7 +19,7 @@ export const MovieCard = ({ movie, isControls }) => {
 	const [makeReq, setMakeReq] = useState(false)
 	const { baseUrl } = useApi();
 
-	const ModalWriteOffOpen = () => setModalWriteOffOpen(true);//TODO: Закончить
+	const ModalWriteOffOpen = () => setModalWriteOffOpen(true);
 	const ModalWriteOffClose = () => {
 		setModalWriteOffOpen(false);
 		navigate(`/FilmPage?roomId=${roomId}`);
@@ -41,9 +40,6 @@ export const MovieCard = ({ movie, isControls }) => {
 		ModalWriteOffOpen()
 
 	};
-	useEffect(() => {
-		console.log("useEffect сработал, makeReq:", makeReq);
-	  }, [makeReq]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -53,7 +49,7 @@ export const MovieCard = ({ movie, isControls }) => {
 			  const response = await makeRequest(
 				"/films/createRoom", 
 				"POST", 
-				{ "movieId": movie.poster, "isPublic": isPublicRoom }
+				{ "movieId": movie.id, "isPublic": isPublicRoom }
 			  );
 			  setRoomId(response.room_id)
 			console.log("Попытка сделать запрос")
@@ -80,7 +76,7 @@ export const MovieCard = ({ movie, isControls }) => {
 	useEffect(() => {
 		const fetchMovies = async () => {
 			try {
-				const url = `/films/p/${movie.poster}.jpg`;
+				const url = `/films/p/${movie.id}.jpg`;
 				await fetchData(url);
 
 			} catch (ex) {}

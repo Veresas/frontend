@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import useServerRequest from "../../hooks/useServerRequest";
-import { useParams } from "react-router-dom";
 import { MovieList, ChekAcess, removeCookie, getSomeCookie } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "../../layouts";
 
 export const AccountPage = () => {
-	const { id } = useParams();
+	const id = getSomeCookie("UserId");
 	const [accessGranted, setAccessGranted] = useState(false);
 	const { reqData, makeRequest } = useServerRequest();
 	const [info, setInfo] = useState(null);
@@ -36,7 +35,7 @@ export const AccountPage = () => {
 		return <ChekAcess onAccessChecked={setAccessGranted} />;
 	}
 	const handleExitClick = () => {
-		removeCookie("Username");
+		removeCookie("UserId");
 		removeCookie("jwtToken");
 		setClik(true);
 	};
@@ -59,7 +58,7 @@ export const AccountPage = () => {
 					<button onClick={handleExitClick}>Выйти из аккаунта</button>
 					<div>
 						<button onClick={handelAddFilmClik}>Добавить фильм</button>
-						<MovieList id={getSomeCookie("Username")} isCatalog={true} />
+						<MovieList id={id} isCatalog={true} />
 					</div>
 
 				</div>

@@ -10,7 +10,12 @@ export const MovieList = ({ id, isCatalog }) => {
 
 	useEffect(() => {
 		const fetchMovies = async () => {
-			const rep = await makeRequest(`/films/filmList/${id}`, "GET");
+			let rep = null
+			if(id === 1){
+				rep = await makeRequest(`/films/publicList`, "GET")
+			}else {
+				rep = await makeRequest(`/films/filmList/${id}`, "GET");
+			}
 			const data = rep;
 			setMovies(data);
 		};

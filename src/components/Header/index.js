@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./styles.module.css"; // Подключаем стили
 import { getSomeCookie } from "../../utils";
 
 export const Header = () => {
-	const name = getSomeCookie("Username");
 
 	return (
 		<header>
@@ -21,7 +20,7 @@ export const Header = () => {
 					</li>
 				
 					<li>
-						<Link to={`/acc/${name}`}>Моя страница</Link>
+						<Link to="/acc">Моя страница</Link>
 					</li>
 					
 				</ul>

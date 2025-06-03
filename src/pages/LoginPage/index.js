@@ -14,6 +14,7 @@ export const LoginPage = () => {
 	const { error, loading, makeRequest } = useServerRequest();
 	const navigate = useNavigate();
 	const [er, setEr] = useState(null);
+	const returnUrl = localStorage.getItem('returnUrl');
 
 	const onSubmit = async (data) => {
 		try {
@@ -22,7 +23,14 @@ export const LoginPage = () => {
 			await setJwtInCookie(response.token);
 			await setUserIdCookie(response.userId);
 			
-			navigate(`/`);
+			
+			if(returnUrl){
+				localStorage.removeItem('returnUrl');
+				navigate(returnUrl)
+			}else{
+				navigate(`/`);
+			}
+
 		} catch (err) {
 
 			setEr(true);

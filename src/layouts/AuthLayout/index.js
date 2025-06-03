@@ -5,15 +5,15 @@ import { getSomeCookie } from "../../utils";
 export const AuthLayout = ({ children }) => {
 	const navigate = useNavigate();
 
-	const name = getSomeCookie("Username");
+	const id = getSomeCookie("UserId");
 
 	useEffect(() => {
-		if (name === undefined) {
+		if (id === undefined) {
 			navigate("/log");
 		} else {
-			navigate(`/acc/${name}`);
+			navigate(`/acc`);
 		}
-	}, [name]);
+	}, [id]);
 
 	return <>{children}</>;
 };

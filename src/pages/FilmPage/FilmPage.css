@@ -1,0 +1,3 @@
+.rce-mbox-text { /* переопределяет стили react-chat-elements/dist/main.css для отображения текста в сообщениях */
+    color: #222 !important; /* основной текст сообщения */
+}
