@@ -19,7 +19,7 @@ export const Video = forwardRef(({ id }, videoRef) => {
 
   return (
     <div>
-      <video ref={videoRef} controls />
+      <video ref={videoRef} muted  controls />
     </div>
   );
 });

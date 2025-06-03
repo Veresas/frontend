@@ -58,7 +58,7 @@ export const UploadForm = () => {
 				parts = file.name.split(".");
 			var type = parts.pop();
 		}
-		const id = getSomeCookie("Username");
+		const id = getSomeCookie("UserId");
 
 		const formData = new FormData();
 		formData.append("title", data.title);

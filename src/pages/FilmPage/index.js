@@ -165,41 +165,44 @@ export const FilmPage = () => {
 	}, [socket, videoId]);
 
 	return (
-		<div>
+		<div className="video-chat-container">
 			{videoId && <Video id={videoId} ref={videoRef} />}
-			<div className="chat-messages">
-                {messages.map((msg, i) => (
-                <MessageBox
-                    key={i}
-                    id={String(i)}
-                    position={'right'}
-                    type="text"
-                    text={msg.mesText}
-                    date={new Date()}
-                    title={msg.userName}
-                    focus={false}
-                    titleColor="#000"
-                    forwarded={false}
-                    replyButton={false}
-                    removeButton={false}
-                    status="received"
-                    notch={true}
-                    retracted={false}
-                    
-                />
-                ))}
-            </div>
-			    <div className="chat-input-block">
-                <input
-                className="chat-input"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                placeholder="Введите сообщение..."
-                />
-                <button className="chat-send-button" onClick={sendMessage}>
-                    Отправить
-                </button>
-            </div>
+
+			<div className="chat-wrapper">
+				<div className="chat-messages">
+					{messages.map((msg, i) => (
+						<MessageBox
+						key={i}
+						id={String(i)}
+						position={'right'}
+						type="text"
+						text={msg.mesText}
+						date={new Date()}
+						title={msg.userName}
+						focus={false}
+						titleColor="#000"
+						forwarded={false}
+						replyButton={false}
+						removeButton={false}
+						status="received"
+						notch={true}
+						retracted={false}
+						/>
+					))}
+				</div>
+
+				<div className="chat-input-block">
+					<input
+						className="chat-input"
+						value={input}
+						onChange={e => setInput(e.target.value)}
+						placeholder="Введите сообщение..."
+					/>
+					<button className="chat-send-button" onClick={sendMessage}>
+						Отправить
+					</button>
+				</div>
+			</div>
 		</div>
 	);
 };

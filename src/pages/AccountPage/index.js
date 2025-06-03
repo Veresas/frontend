@@ -3,6 +3,7 @@ import useServerRequest from "../../hooks/useServerRequest";
 import { MovieList, ChekAcess, removeCookie, getSomeCookie } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "../../layouts";
+import "./AccountPage.css";
 
 export const AccountPage = () => {
 	const id = getSomeCookie("UserId");

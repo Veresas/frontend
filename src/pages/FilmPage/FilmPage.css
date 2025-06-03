@@ -1,3 +1,69 @@
 .rce-mbox-text { /* переопределяет стили react-chat-elements/dist/main.css для отображения текста в сообщениях */
     color: #222 !important; /* основной текст сообщения */
 }
+
+.video-chat-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px; /* отступы от краёв экрана */
+  box-sizing: border-box;
+  height: 600px; /* фиксированная высота */
+  gap: 20px;
+}
+
+.video-chat-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  border-radius: 8px;
+}
+
+/* Видео: 5 частей, Чат: 1 часть */
+.video-chat-container > *:first-child {
+  flex: 5;
+}
+
+.chat-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding-right: 5px;
+}
+
+.chat-input-block {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.chat-send-button {
+  padding: 8px 16px;
+  background-color: #F66F18;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.chat-send-button:hover {
+  background-color: #ee8a47;
+}

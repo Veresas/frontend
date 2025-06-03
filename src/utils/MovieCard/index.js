@@ -22,7 +22,9 @@ export const MovieCard = ({ movie, isControls }) => {
 	const ModalWriteOffOpen = () => setModalWriteOffOpen(true);
 	const ModalWriteOffClose = () => {
 		setModalWriteOffOpen(false);
-		navigate(`/FilmPage?roomId=${roomId}`);
+		if (roomId) {
+			navigate(`/FilmPage?roomId=${roomId}`);
+		}
 	}
 
 
@@ -92,15 +94,15 @@ export const MovieCard = ({ movie, isControls }) => {
 
 	if (file && file.url) {
 		return (
-			<div>
+			<div className="movie-list">
 				<div className="movie-card" onClick={handleClick}>
 					<img src={file.url} alt={movie.title} />
 					<h3>{movie.title}</h3>
 					{isControls && (
-						<d>
+						<div>
 							<button onClick={handelRemakeClik}>ред</button>
 							<button onClick={handelDeletClik}>удалить</button>
-						</d>
+						</div>
 					)}
 				</div>
 
@@ -140,7 +142,6 @@ export const MovieCard = ({ movie, isControls }) => {
 
 						<button
 						type="submit"
-						className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
 						>
 						Создать
 						</button>

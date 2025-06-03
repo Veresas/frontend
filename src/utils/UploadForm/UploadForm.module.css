@@ -44,7 +44,7 @@ form input[type="email"]:focus {
 form button {
 	width: 100%;
 	padding: 12px;
-	background-color: #3498db;
+	background-color: #F66F18;
 	color: white;
 	font-size: 16px;
 	border: none;
@@ -55,7 +55,7 @@ form button {
 
 /* Эффект при наведении на кнопку */
 form button:hover {
-	background-color: #2980b9;
+	background-color: #ee8a47;
 }
 
 /* Стили для вывода ошибок (если потребуется) */
